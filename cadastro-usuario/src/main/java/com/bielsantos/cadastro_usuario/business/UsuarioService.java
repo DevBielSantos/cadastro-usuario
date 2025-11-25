@@ -3,6 +3,8 @@ package com.bielsantos.cadastro_usuario.business;
 
 import com.bielsantos.cadastro_usuario.infrastructure.entitys.Usuario;
 import com.bielsantos.cadastro_usuario.infrastructure.repository.UsuarioRepository;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +16,7 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public void salvarUssuario(Usuario usuario) {
+    public void salvarUsuario(Usuario usuario) {
         repository.saveAndFlush(usuario);
     }
 
@@ -22,6 +24,17 @@ public class UsuarioService {
         return repository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("Email não encontrado")
         );
+    }
+
+    public void deletarUsuarioPorEmail(String email) {
+        repository.deleteByEmail(email);
+    }
+
+
+    public void atualizarUsuarioPorEmail(String email, Usuario usuario){
+        Usuario usuarioEntity = buscarUsuarioPorEmail(email);
+
+
     }
 
 
